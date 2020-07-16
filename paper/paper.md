@@ -21,6 +21,98 @@ affiliations:
 date: 9 July 2020
 bibliography: paper.bib
 ---
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\Z}{\mathbf{Z}}
+\renewcommand{\E}{\mathbf{E}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\U}{\mathbf{U}}
+\newcommand{\V}{\mathbf{V}}
+\renewcommand{\L}{\mathbf{L}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\renewcommand{\l}{\boldsymbol{\lambda}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\R}{\mathbf{R}}
+\def\real{\mathbb{R}}
+\newcommand{\s}{\mathbf{s}}
+\renewcommand{\S}{\mathbf{S}}
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\Sig}{\boldsymbol{\Sigma}}
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\boldsymbol{\beta}}
+\renewcommand{\t}{\boldsymbol{\theta}}
+\newcommand{\T}{\boldsymbol{\Theta}}
+\newcommand{\mb}{\mathbf}
+\newcommand{\RD}{\mathbf{R}^{D}}
+\newcommand{\e}{\boldsymbol{\varepsilon}}
+\renewcommand{\r}{\rho}
+\newcommand{\g}{\boldsymbol{\gamma}}
+\renewcommand{\d}{\boldsymbol{\delta}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\normdist}[2]{\ensuremath{\mathcal{N}(#1,#2)}}
+\newcommand{\normdistk}[3]{\ensuremath{\mathcal{N}_{#3}(#1,#2)}}
+\newcommand{\wish}[2]{\ensuremath{\mathcal{W}(#1,#2)}}
+\newcommand{\invwish}[2]{\ensuremath{\mathcal{IW}(#1,#2)}}
+\newcommand{\gamdist}[2]{\ensuremath{\mathcal{G}(#1,#2)}}
+\newcommand{\invgam}[2]{\ensuremath{\mathcal{IG}(#1,#2)}}
+\newcommand{\studt}[3]{\ensuremath{t_{#3}(#1,#2)}}
+\newcommand{\binomial}[2]{\ensuremath{\mathcal{B}in(#1,#2)}}
+\newcommand{\bern}[1]{\ensuremath{\mathcal{B}ernoulli(#1)}}
+\newcommand{\diri}[1]{\ensuremath{\mathcal{D}irichlet(#1)}}
+\newcommand{\unif}[2]{\ensuremath{\mathcal{U}(#1,#2)}}
+\newcommand{\chisqr}[1]{\ensuremath{\chi_{#1}^{2}}}
+\newcommand{\invchisqr}[1]{\ensuremath{\mathcal{I}nv}\textnormal{-}\ensuremath{\chi_{#1}^{2}}}
+\newcommand{\betadist}[2]{\ensuremath{\mathcal{B}eta(#1,#2)}}
+\newcommand{\poisson}[1]{\ensuremath{\mathcal{P}oisson(#1)}}
+\newcommand{\expo}[1]{\ensuremath{\mathcal{E}xp(#1)}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\thh}{^\mathrm{th}}
+\newcommand{\modtwo}{\mathrm{[mod~2]}}
+\newcommand{\thetaof}[2]{\theta \langle #1;#2\rangle}
+\newcommand{\Mpa}{M_\mathrm{P,A}}
+\newcommand{\Ma}{M_\mathrm{A}}
+\newcommand{\rjaccept}{\mathcal{A}}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(NetworkChange)
+require(sna)
+knitr::opts_chunk$set(
+  dpi=300,fig.width=7,
+  warning=FALSE,
+  message=FALSE,
+  collapse = TRUE,
+  ## fig.asp = 1, 
+  comment = "#>"## , 
+  ## eval=FALSE
+)
+```
+
+````{r img-setup, include=FALSE, cache=FALSE}
+out.format <- knitr::opts_knit$get("out.format")
+img_template <- switch( out.format,
+                     word = list("img-params"=list(fig.width=6,
+                                                   fig.height=6,
+                                                   dpi=150)),
+                     {
+                       # default
+                       list("img-params"=list( dpi=150,
+                                               fig.width=6,
+                                               fig.height=6,
+                                               out.width="504px",
+                                               out.height="504px"))
+                     } )
+
+knitr::opts_template$set( img_template )
+````
 
 # Summary
 
