@@ -77,6 +77,7 @@ detect2 <- BreakDiagnostic(newY, R=2, break.upper=2,
                            v0=v0, v1=v1)
 detect2[[1]]
 ```
+![Break number detection.\label{fig:list}](number.png)
 
 The test results from WAIC, log marginal likelihood, and average loss indicate that HNC with two breaks is most reasonable.
 
@@ -97,18 +98,21 @@ First, we can examine transitions of hidden regimes by looking at posterior stat
 attr(fit, "y") <- 1:K[[3]]
 plotState(fit, start=1)
 ```
+![Regime Probability.\label{fig:regime}](regime.png)
 
 Next, we draw regime-specific latent node positions of major powers using `drawPostAnalysis`. Users can choose the number of clusters in each regime by `n.cluster}.
 ```r
 p.list <- drawPostAnalysis(fit, newY, n.cluster=c(4, 4, 3))
 multiplot(plotlist = p.list, cols=3)
 ```
+![Regime-specific latent node positions.\label{fig:regime3}](regime3.png)
 
 Then, using `drawRegimeRaw()`, we can visualize original network connections for each regime by collapsing network data within each regime.
 
 ```r
 drawRegimeRaw(fit, newY)
 ```
+![Regime-specific networks.\label{fig:net}](net.png)
 
 Identifying hidden regimes of the military alliance network makes it clear the central role of Austria-Hungary during the first two regimes in the military alliance network among major powers.
 
