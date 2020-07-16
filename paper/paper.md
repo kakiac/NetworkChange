@@ -22,39 +22,6 @@ date: 9 July 2020
 bibliography: paper.bib
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-require(NetworkChange)
-require(sna)
-knitr::opts_chunk$set(
-  dpi=300,fig.width=7,
-  warning=FALSE,
-  message=FALSE,
-  collapse = TRUE,
-  ## fig.asp = 1, 
-  comment = "#>"## , 
-  ## eval=FALSE
-)
-```
-
-````{r img-setup, include=FALSE, cache=FALSE}
-out.format <- knitr::opts_knit$get("out.format")
-img_template <- switch( out.format,
-                     word = list("img-params"=list(fig.width=6,
-                                                   fig.height=6,
-                                                   dpi=150)),
-                     {
-                       # default
-                       list("img-params"=list( dpi=150,
-                                               fig.width=6,
-                                               fig.height=6,
-                                               out.width="504px",
-                                               out.height="504px"))
-                     } )
-
-knitr::opts_template$set( img_template )
-````
-
 # Summary
 
 **NetworkChange** is an R package that detects multiple structural
