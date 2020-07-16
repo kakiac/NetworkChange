@@ -21,65 +21,6 @@ affiliations:
 date: 9 July 2020
 bibliography: paper.bib
 ---
-\newcommand{\A}{\mathcal{A}}
-\newcommand{\B}{\mathcal{B}}
-\newcommand{\Y}{\mathbf{Y}}
-\newcommand{\Z}{\mathbf{Z}}
-\newcommand{\E}{\mathbf{E}}
-\newcommand{\M}{\mathbf{M}}
-\newcommand{\U}{\mathbf{U}}
-\newcommand{\V}{\mathbf{V}}
-\newcommand{\L}{\mathbf{L}}
-\newcommand{\u}{\mathbf{u}}
-\newcommand{\v}{\mathbf{v}}
-\newcommand{\l}{\boldsymbol{\lambda}}
-\newcommand{\z}{\mathbf{z}}
-\newcommand{\y}{\mathbf{y}}
-\newcommand{\x}{\mathbf{x}}
-\newcommand{\X}{\mathbf{X}}
-\newcommand{\W}{\mathbf{W}}
-\newcommand{\F}{\mathbf{F}}
-\newcommand{\G}{\mathbf{G}}
-\newcommand{\R}{\mathbf{R}}
-\def\real{\mathbb{R}}
-\newcommand{\s}{\mathbf{s}}
-\newcommand{\S}{\mathbf{S}}
-\newcommand{\P}{\mathbf{P}}
-\newcommand{\Sig}{\boldsymbol{\Sigma}}
-\newcommand{\a}{\alpha}
-\newcommand{\b}{\boldsymbol{\beta}}
-\newcommand{\t}{\boldsymbol{\theta}}
-\newcommand{\T}{\boldsymbol{\Theta}}
-\newcommand{\mb}{\mathbf}
-\newcommand{\RD}{\mathbf{R}^{D}}
-\newcommand{\e}{\boldsymbol{\varepsilon}}
-\newcommand{\r}{\rho}
-\newcommand{\g}{\boldsymbol{\gamma}}
-\newcommand{\d}{\boldsymbol{\delta}}
-\newcommand{\bs}{\boldsymbol}
-\newcommand{\normdist}[2]{\ensuremath{\mathcal{N}(#1,#2)}}
-\newcommand{\normdistk}[3]{\ensuremath{\mathcal{N}_{#3}(#1,#2)}}
-\newcommand{\wish}[2]{\ensuremath{\mathcal{W}(#1,#2)}}
-\newcommand{\invwish}[2]{\ensuremath{\mathcal{IW}(#1,#2)}}
-\newcommand{\gamdist}[2]{\ensuremath{\mathcal{G}(#1,#2)}}
-\newcommand{\invgam}[2]{\ensuremath{\mathcal{IG}(#1,#2)}}
-\newcommand{\studt}[3]{\ensuremath{t_{#3}(#1,#2)}}
-\newcommand{\binomial}[2]{\ensuremath{\mathcal{B}in(#1,#2)}}
-\newcommand{\bern}[1]{\ensuremath{\mathcal{B}ernoulli(#1)}}
-\newcommand{\diri}[1]{\ensuremath{\mathcal{D}irichlet(#1)}}
-\newcommand{\unif}[2]{\ensuremath{\mathcal{U}(#1,#2)}}
-\newcommand{\chisqr}[1]{\ensuremath{\chi_{#1}^{2}}}
-\newcommand{\invchisqr}[1]{\ensuremath{\mathcal{I}nv}\textnormal{-}\ensuremath{\chi_{#1}^{2}}}
-\newcommand{\betadist}[2]{\ensuremath{\mathcal{B}eta(#1,#2)}}
-\newcommand{\poisson}[1]{\ensuremath{\mathcal{P}oisson(#1)}}
-\newcommand{\expo}[1]{\ensuremath{\mathcal{E}xp(#1)}}
-\newcommand{\Dir}{\mathrm{Dir}}
-\newcommand{\thh}{^\mathrm{th}}
-\newcommand{\modtwo}{\mathrm{[mod~2]}}
-\newcommand{\thetaof}[2]{\theta \langle #1;#2\rangle}
-\newcommand{\Mpa}{M_\mathrm{P,A}}
-\newcommand{\Ma}{M_\mathrm{A}}
-\newcommand{\rjaccept}{\mathcal{A}}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -131,6 +72,8 @@ of longitudinal networks.
 
 The package is designed for R users who need to analyze longitudinal network data to discover latent node-level characteristics including cases when there are discrete changes of the underlying states governing the node-level characteristics. This is in contrast to an R package for latent space and cluster analysis of networks [@krivitsky2008fitting] which does not incorporate a state space model (e.g. hidden Markov model) and a Python code for longitudinal network analysis [@peel2015detecting] under a distinct formulation (hierarchical random graph model) with a changepoint detection function. In addition to functions for the statistical analysis, **NetworkChange** provides visualization functions for summary of the analysis results (\autoref{fig:list}). The complete guide for using core functions of the package is presented at https://github.com/jongheepark/NetworkChange as its vignette with an empirical data set analysis example. @ParkSohn2020 provide methodological details of the algorithms implemented in the package. 
 
+![Summary of selected features and functions of the package.\label{fig:list}](list.png)
+
 #  Empirical Data Analysis Example
 
 In this section, we analyze changes in the international military alliance network among major powers. The data set is originally from [@Gibler2009] and users can call this data set by `data(MajorAlly)`.
@@ -146,7 +89,7 @@ drop.state <- c(which(colnames(Y) == "USA"), which(colnames(Y) == "CHN"))
 newY <- Y[-drop.state, -drop.state, 1:62]
 ```
 
-First, we fit a pilot model to elicit reasonable inverse gamma prior values for $\v_t$ ($v_0$ and $v_1$).
+First, we fit a pilot model to elicit reasonable inverse gamma prior values for $\mathbf{v}_t$ ($v_0$ and $v_1$).
 ```{r test}
 G <- 100
 set.seed(1990)
@@ -181,7 +124,7 @@ fit <- NetworkChange(newY, R=2, m=m, mcmc=G, initial.s = initial.s,
                      burnin=G, verbose=0, v0=v0, v1=v1)
 ```
 
-First, we can examine transitions of hidden regimes by looking at posterior state probabilities ($p(\S | \mathcal{Y}, \Theta)$) over time. `plotState()` in `MCMCpack` pacakge provides a function to draw the posterior state probabilities from changepoint analysis results. Since our input data is an array, we need to change the input data as a vector.
+First, we can examine transitions of hidden regimes by looking at posterior state probabilities ($p(\mathbf{S} | \mathcal{Y}, \Theta)$) over time. `plotState()` in `MCMCpack` pacakge provides a function to draw the posterior state probabilities from changepoint analysis results. Since our input data is an array, we need to change the input data as a vector.
 
 ```{r, fig.asp = 0.8, out.width="100%"}
 attr(fit, "y") <- 1:K[[3]]
@@ -205,7 +148,5 @@ Identifying hidden regimes of the military alliance network makes it clear the c
 # Acknowledgements
 
 This work was supported by the Japan Society for the Promotion of Science Early-Career Scientists Grant [JP19K13606] to Y.S.
-
-![Summary of selected features and functions of the package.\label{fig:list}](list.png)
 
 # References
