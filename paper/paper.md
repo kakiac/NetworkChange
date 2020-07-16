@@ -48,7 +48,7 @@ In this section, we analyze changes in the international military alliance netwo
 Our goal in this section is to detect structural changes in the longitudinal alliance network among major powers using HNC.  We follow the COW dataset's coding of "major powers" (the United Kingdom,  Germany, Austria-Hungary, France, Italy, Russia, the United States, Japan, and China) in the analysis. We aggregated every 2 year network from the original annual binary networks to increase the density of each layer.
 
 
-```{r ally}
+```r
 data(MajorAlly)
 Y <- MajorAlly
 time <- dim(Y)[3]
@@ -57,7 +57,7 @@ newY <- Y[-drop.state, -drop.state, 1:62]
 ```
 
 First, we fit a pilot model to elicit reasonable inverse gamma prior values for $\mathbf{v}_t$ ($v_0$ and $v_1$).
-```{r test}
+```r
 G <- 100
 set.seed(1990)
 test.run <- NetworkStatic(newY, R=2, mcmc=G, burnin=G, verbose=0,
@@ -70,7 +70,7 @@ v1 <- 2 * sigma.mu * (v0/2 - 1)
 ```
 
 Then, we diagnose the break number by comparing model-fits of several models with a varying number of breaks.
-```{r, fig.asp = 0.25, out.width="100%"}
+```r
 set.seed(11223);
 detect2 <- BreakDiagnostic(newY, R=2, break.upper=2,
                            mcmc=G, burnin=G, verbose=0,
@@ -81,7 +81,7 @@ detect2[[1]]
 The test results from WAIC, log marginal likelihood, and average loss indicate that HNC with two breaks is most reasonable.
 
 Based on the test result, we fit the HNC with two breaks to the major power alliance network and save the result in *R* object `fit`.
-```{r hncally}
+```r
 G <- 100
 K <- dim(newY)
 m <- 2
@@ -93,20 +93,20 @@ fit <- NetworkChange(newY, R=2, m=m, mcmc=G, initial.s = initial.s,
 
 First, we can examine transitions of hidden regimes by looking at posterior state probabilities ($p(\mathbf{S} | \mathcal{Y}, \Theta)$) over time. `plotState()` in `MCMCpack` pacakge provides a function to draw the posterior state probabilities from changepoint analysis results. Since our input data is an array, we need to change the input data as a vector.
 
-```{r, fig.asp = 0.8, out.width="100%"}
+```r
 attr(fit, "y") <- 1:K[[3]]
 plotState(fit, start=1)
 ```
 
 Next, we draw regime-specific latent node positions of major powers using `drawPostAnalysis`. Users can choose the number of clusters in each regime by `n.cluster}.
-```{r, fig.asp = 0.33, out.width="100%"}
+```r
 p.list <- drawPostAnalysis(fit, newY, n.cluster=c(4, 4, 3))
 multiplot(plotlist = p.list, cols=3)
 ```
 
 Then, using `drawRegimeRaw()`, we can visualize original network connections for each regime by collapsing network data within each regime.
 
-```{r, fig.asp = 0.33, out.width="100%"}
+```r
 drawRegimeRaw(fit, newY)
 ```
 
