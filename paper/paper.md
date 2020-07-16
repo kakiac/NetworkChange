@@ -98,7 +98,7 @@ First, we can examine transitions of hidden regimes by looking at posterior stat
 attr(fit, "y") <- 1:K[[3]]
 plotState(fit, start=1)
 ```
-![Regime Probability.\label{fig:regime}](regime.png)
+![Regime probability.\label{fig:regime}](regime.png)
 
 Next, we draw regime-specific latent node positions of major powers using `drawPostAnalysis`. Users can choose the number of clusters in each regime by `n.cluster}.
 ```r
