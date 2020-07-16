@@ -105,7 +105,7 @@ Next, we draw regime-specific latent node positions of major powers using `drawP
 p.list <- drawPostAnalysis(fit, newY, n.cluster=c(4, 4, 3))
 multiplot(plotlist = p.list, cols=3)
 ```
-![Regime-specific latent node positions.\label{fig:regime3}](regime3.png)
+![Regime-specific latent node positions.\label{fig:regimes3}](regimes3.png)
 
 Then, using `drawRegimeRaw()`, we can visualize original network connections for each regime by collapsing network data within each regime.
 
